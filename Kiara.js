@@ -6,7 +6,7 @@ $('#mltk-bottom-bar').remove();
     'use strict';
 
     const TOOLKIT_CONFIG = {
-        name: 'Mat-Legend Toolkit',
+        name: 'Script KIARA',
         version: '1.0',
         iconUrl: 'https://i.imgur.com/p50QNka.png',
         categories: [
@@ -53,6 +53,20 @@ $('#mltk-bottom-bar').remove();
                     {
                         label: 'Enviar Recursos',
                         action: () => $.getScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
+                    },
+                    {
+                        label: 'Coletar coords perfil',
+                        action: () => $.getScript('https://twscripts.dev/scripts/extendedPlayerInfo.js')
+                    },
+                    {
+                        label: 'Simulados de Construção e Tropas',
+                        action: () => {
+                            const s = document.createElement('script');
+                            s.src = 'https://cdn.jsdelivr.net/gh/Matiluco/Calculadora-de-Construcoes@main/Simulador.js?' + Date.now();
+                            s.onload = function () { console.log('Simulador carregado'); };
+                            s.onerror = function () { alert('Erro ao carregar Simulador'); };
+                            document.body.appendChild(s);
+                        }
                     }
                 ]
             },
@@ -72,6 +86,10 @@ $('#mltk-bottom-bar').remove();
                     {
                         label: 'Comparação das tribos',
                         action: () => $.getScript('https://twscripts.dev/scripts/tribeStatsTool.js')
+                    },
+                    {
+                        label: 'Eficiência do farm',
+                        action: () => $.getScript('https://twscripts.dev/scripts/farmingEfficiencyCalculator.js')
                     }
                 ]
             },
@@ -87,6 +105,10 @@ $('#mltk-bottom-bar').remove();
                     {
                         label: 'Checar defesa',
                         action: () => $.getScript('https://twscripts.dev/scripts/defenseHealthCheck.js')
+                    },
+                    {
+                        label: 'Meus Apoios',
+                        action: () => $.getScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/SupportCounter.js')
                     }
                 ]
             },
@@ -114,6 +136,79 @@ $('#mltk-bottom-bar').remove();
                     {
                         label: 'Calculadora de pps',
                         action: () => $.getScript('https://shinko-to-kuma.com/scripts/log.js')
+                    },
+                    {
+                        label: 'Previsão bandeiras',
+                        action: () => {
+                            function processFlagRow(row) {
+                                let flags = [];
+
+                                for (let i = 1; i <= 9; i++) {
+                                    let flagBox = document.querySelector(`#flag_box_${row}_${i}`);
+                                    if (flagBox) {
+                                        let flagCountElement = flagBox.querySelector('.flag_count');
+                                        if (flagCountElement) {
+                                            flags.push(flagCountElement.innerText);
+                                        }
+                                    }
+                                }
+
+                                flags = flags.map(flag => flag === '' ? 0 : parseInt(flag, 10));
+
+                                for (let i = 0; i < flags.length - 1; i++) {
+                                    let currentLevel = flags[i];
+                                    let nextLevel = flags[i + 1];
+                                    let convertToNextLevel = Math.floor(currentLevel / 3);
+
+                                    if (convertToNextLevel > 0) {
+                                        console.log(`Linha ${row}: Calculando bandeiras do nível ${i + 1}, onde tenho ${currentLevel} bandeiras. Posso transformar ${convertToNextLevel * 3} bandeiras em ${convertToNextLevel} bandeira(s) para o próximo nível.`);
+                                        console.log(`Linha ${row}: Nível ${i + 2} tinha ${nextLevel} bandeira(s) e agora terá ${nextLevel + convertToNextLevel} bandeira(s).`);
+
+                                        flags[i + 1] += convertToNextLevel;
+                                        flags[i] -= convertToNextLevel * 3;
+                                    } else {
+                                        console.log(`Linha ${row}: No nível ${i + 1}, tenho ${currentLevel} bandeiras. Não há bandeiras suficientes para converter.`);
+                                    }
+                                }
+
+                                for (let i = 1; i <= 9; i++) {
+                                    let flagBox = document.querySelector(`#flag_box_${row}_${i}`);
+                                    if (flagBox) {
+                                        let flagCountElement = flagBox.querySelector('.flag_count');
+                                        let newFlagCount = flags[i - 1];
+
+                                        let flagUpgrade = flagBox.querySelector('.flag_upgrade');
+                                        if (flagUpgrade) {
+                                            flagUpgrade.remove();
+                                        }
+
+                                        if (newFlagCount > 0) {
+                                            flagCountElement.innerText = newFlagCount;
+
+                                            flagBox.style.backgroundImage = `url('https://dsxs.innogamescdn.com/asset/e0dbe5d0/graphic/flags/medium/${row}_${i}.png')`;
+                                            flagBox.style.cursor = 'pointer';
+
+                                            flagCountElement.style.display = 'inline';
+                                            flagCountElement.style.backgroundColor = 'lightgreen';
+
+                                            flagBox.classList.remove('flag_box_empty');
+                                            flagBox.classList.remove(`flag_box_empty_${i}`);
+                                        } else {
+                                            flagBox.classList.add('flag_box_empty');
+                                            if (flagCountElement) {
+                                                flagCountElement.style.display = 'none';
+                                            }
+                                            flagBox.style.cursor = 'default';
+                                            flagBox.style.backgroundImage = `url('https://dsbr.innogamescdn.com/asset/1e5b6b81/graphic/flags/medium/${row}_6.png')`;
+                                        }
+                                    }
+                                }
+                            }
+
+                            for (let row = 1; row <= 8; row++) {
+                                processFlagRow(row);
+                            }
+                        }
                     }
                 ]
             }
@@ -293,9 +388,11 @@ $('#mltk-bottom-bar').remove();
                 display: none;
                 padding: 6px;
                 border-radius: 6px;
+                z-index: 999999;
             }
 
-            .mltk-cat:hover .mltk-submenu {
+            .mltk-cat:hover .mltk-submenu,
+            .mltk-submenu:hover {
                 display: block;
             }
 
