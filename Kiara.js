@@ -1,9 +1,14 @@
-$('#mltk-wrapper').remove();
-$('#mltk-style').remove();
-$('#mltk-bottom-bar').remove();
-
 (function () {
     'use strict';
+
+    if (typeof window.jQuery === 'undefined') {
+        alert('jQuery não está disponível nesta página.');
+        return;
+    }
+
+    $('#mltk-wrapper').remove();
+    $('#mltk-style').remove();
+    $('#mltk-bottom-bar').remove();
 
     const TOOLKIT_CONFIG = {
         name: 'Script KIARA',
