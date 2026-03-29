@@ -34,42 +34,47 @@ $('#mltk-bottom-bar').remove();
                 ]
             },
             {
-                id: 'tools',
-                label: 'Ferramentas',
-                icon: '🧰',
-                items: [
-                    {
-                        label: 'Adicionar nota na aldeia',
-                        action: () => $.getScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/AutoNotesFromReports.js')
-                    },
-                    {
-                        label: 'Adicionar grupo em massa',
-                        action: () => $.getScript('https://www.dl.dropboxusercontent.com/scl/fi/c743u2tn6e4g3345ztb7i/Group_Import_Coordinate.js?rlkey=y1g84o3zzwiva16c9hpr86bs3&dl=0')
-                    },
-                    {
-                        label: 'Renomeador de aldeias',
-                        action: () => $.getScript('https://dl.dropboxusercontent.com/s/9rpgd3weuj0vp7z/renameVillages.js')
-                    },
-                    {
-                        label: 'Enviar Recursos',
-                        action: () => $.getScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
-                    },
-                    {
-                        label: 'Coletar coords perfil',
-                        action: () => $.getScript('https://twscripts.dev/scripts/extendedPlayerInfo.js')
-                    },
-                    {
-                        label: 'Simulados de Construção e Tropas',
-                        action: () => {
-                            const s = document.createElement('script');
-                            s.src = 'https://cdn.jsdelivr.net/gh/Matiluco/Calculadora-de-Construcoes@main/Simulador.js?' + Date.now();
-                            s.onload = function () { console.log('Simulador carregado'); };
-                            s.onerror = function () { alert('Erro ao carregar Simulador'); };
-                            document.body.appendChild(s);
-                        }
-                    }
-                ]
-            },
+                {
+    id: 'tools',
+    label: 'Ferramentas',
+    icon: '🧰',
+    items: [
+        {
+            label: 'Adicionar nota na aldeia',
+            action: () => $.getScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/AutoNotesFromReports.js')
+        },
+        {
+            label: 'Adicionar grupo em massa',
+            action: () => $.getScript('https://www.dl.dropboxusercontent.com/scl/fi/c743u2tn6e4g3345ztb7i/Group_Import_Coordinate.js?rlkey=y1g84o3zzwiva16c9hpr86bs3&dl=0')
+        },
+        {
+            label: 'Importar grupo dinâmico',
+            action: () => $.getScript('https://twscripts.dev/scripts/importExportDynamicGroups.js')
+        },
+        {
+            label: 'Renomeador de aldeias',
+            action: () => $.getScript('https://dl.dropboxusercontent.com/s/9rpgd3weuj0vp7z/renameVillages.js')
+        },
+        {
+            label: 'Enviar Recursos',
+            action: () => $.getScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
+        },
+        {
+            label: 'Coletar coords perfil',
+            action: () => $.getScript('https://twscripts.dev/scripts/extendedPlayerInfo.js')
+        },
+        {
+            label: 'Simulador de Construção e Tropas',
+            action: () => {
+                const s = document.createElement('script');
+                s.src = 'https://cdn.jsdelivr.net/gh/Matiluco/Calculadora-de-Construcoes@main/Simulador.js?' + Date.now();
+                s.onload = function () { console.log('Simulador carregado'); };
+                s.onerror = function () { alert('Erro ao carregar Simulador'); };
+                document.body.appendChild(s);
+            }
+        }
+    ]
+},
             {
                 id: 'stats',
                 label: 'Estatísticas',
@@ -244,7 +249,7 @@ $('#mltk-bottom-bar').remove();
             return;
         }
 
-        window.open(`https://twreplay.com/server/br/world/${world}.`, '_blank');
+       window.open(`https://twreplay.com/server/br/world/${world}/`, '_blank');
     }
 
     function injectStyles() {
