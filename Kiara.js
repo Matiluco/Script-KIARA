@@ -7,7 +7,7 @@ $('#mltk-bottom-bar').remove();
 
     const TOOLKIT_CONFIG = {
         name: 'Script KIARA',
-        version: '1.0',
+        version: '1.1',
         iconUrl: 'https://i.imgur.com/p50QNka.png',
         categories: [
             {
