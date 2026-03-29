@@ -38,7 +38,6 @@
                     }
                 ]
             },
-            {
                 {
     id: 'tools',
     label: 'Ferramentas',
