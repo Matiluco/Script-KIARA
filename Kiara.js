@@ -4,8 +4,9 @@
     const ROOT_ID = 'mltk-wrapper';
     const STYLE_ID = 'mltk-style';
     const BAR_ID = 'mltk-bottom-bar';
-    const VERSION = '1.4.2';
+    const VERSION = '1.4.3';
     const OWN_REPO_BASE = 'https://cdn.jsdelivr.net/gh/Matiluco';
+    const SIMULATOR_PATH = 'Calculadora-de-Construcoes@5007a77540c7d7ea3578b0e7f4cd420d12d7c64e/Simulador.js';
 
     removeExisting();
 
@@ -73,7 +74,7 @@
                     },
                     {
                         label: 'Simulador de Construcoes e Tropas',
-                        action: () => loadOwnScript('Calculadora-de-Construcoes@main/Simulador.js')
+                        action: () => loadOwnScript(SIMULATOR_PATH)
                     }
                 ]
             },
