@@ -269,10 +269,10 @@
 
     function injectStyles() {
         const css = `
-            #${ROOT_ID}{position:fixed;top:150px;left:54px;z-index:999999;display:flex;align-items:flex-start;font-family:Verdana,Arial,sans-serif}
+            #${ROOT_ID}{position:fixed;top:45px;right:0;z-index:999999;display:flex;align-items:flex-start;font-family:Verdana,Arial,sans-serif}
             #mltk-icon{width:72px;height:120px;border:1px solid #777;border-right:none;border-radius:12px 0 0 12px;overflow:hidden;background:#111;box-shadow:-2px 2px 8px rgba(0,0,0,.35);flex-shrink:0}
             #mltk-icon img{width:100%;height:100%;object-fit:cover;display:block}
-            #mltk-panel{width:250px;min-height:90px;background:#f0d000;border:1px solid #777;border-left:none;border-radius:0 10px 10px 0;box-shadow:2px 2px 8px rgba(0,0,0,.25);display:none;padding:8px 10px;box-sizing:border-box}
+            #mltk-panel{width:250px;min-height:90px;background:#f0d000;border:1px solid #777;border-right:none;box-shadow:-2px 2px 8px rgba(0,0,0,.25);display:none;padding:8px 10px;box-sizing:border-box}
             #${ROOT_ID}:hover #mltk-panel{display:block}
             .mltk-title{text-align:center;font-weight:700;font-size:14px;color:#006400;text-decoration:underline;margin-bottom:8px}
             .mltk-version-line{font-size:13px;font-weight:700;font-style:italic;line-height:1.4;text-align:center}
