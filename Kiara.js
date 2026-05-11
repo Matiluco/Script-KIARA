@@ -4,7 +4,7 @@
     const ROOT_ID = 'mltk-wrapper';
     const STYLE_ID = 'mltk-style';
     const BAR_ID = 'mltk-bottom-bar';
-    const VERSION = '1.4.3';
+    const VERSION = '1.5.0';
     const OWN_REPO_BASE = 'https://cdn.jsdelivr.net/gh/Matiluco';
     const SIMULATOR_PATH = 'Calculadora-de-Construcoes@5007a77540c7d7ea3578b0e7f4cd420d12d7c64e/Simulador.js';
 
@@ -32,6 +32,10 @@
                     {
                         label: 'Range da Torre',
                         action: () => loadExternalScript('https://shinko-to-kuma.com/scripts/watchTower.js')
+                    },
+                    {
+                        label: 'Limpar Coords',
+                        action: () => loadExternalScript('https://cdn.jsdelivr.net/gh/Mephistosz/UtilitiesTW/scripts/CoordExtractor.js')
                     },
                     {
                         label: 'Mapa do Mundo',
@@ -75,6 +79,21 @@
                     {
                         label: 'Simulador de Construcoes e Tropas',
                         action: () => loadOwnScript(SIMULATOR_PATH)
+                    },
+                    {
+                        label: 'Farm God',
+                        action: () => loadExternalScript('https://higamy.github.io/TW/Scripts/Approved/FarmGodCopy.js')
+                    },
+                    {
+                        label: 'Coleta Massa',
+                        action: () => {
+                            window.premiumBtnEnabled = false;
+                            loadExternalScript('https://shinko-to-kuma.com/scripts/massScavenge.js');
+                        }
+                    },
+                    {
+                        label: 'Balanceador',
+                        action: () => loadExternalScript('https://shinko-to-kuma.com/scripts/WHBalancerShinkoToKuma.js')
                     }
                 ]
             },
@@ -98,6 +117,10 @@
                     {
                         label: 'Eficiencia do farm',
                         action: () => loadExternalScript('https://twscripts.dev/scripts/farmingEfficiencyCalculator.js')
+                    },
+                    {
+                        label: 'Tribo Overwatch',
+                        action: () => loadExternalScript('https://shinko-to-kuma.com/scripts/overwatch.js')
                     }
                 ]
             },
@@ -117,6 +140,26 @@
                     {
                         label: 'Meus Apoios',
                         action: () => loadExternalScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/SupportCounter.js')
+                    },
+                    {
+                        label: 'Planejador Atak',
+                        action: () => loadExternalScript('https://dl.dropboxusercontent.com/s/uj9buw80npwqnmi/planeador_ataques.js')
+                    },
+                    {
+                        label: 'Organizar Def',
+                        action: () => {
+                            window.NOBLE_GAP = 100;
+                            window.FORMAT = '%unit% %player% %sent%';
+                            loadExternalScript('https://twscripts.dev/scripts/incomingsOverview.js');
+                        }
+                    },
+                    {
+                        label: 'Snips Possiveis',
+                        action: () => loadExternalScript('https://twscripts.dev/scripts/singleVillageSnipe.js')
+                    },
+                    {
+                        label: 'Snip Cancel',
+                        action: () => loadExternalScript('https://twdevtools.github.io/approved/scripts/snipe.js')
                     }
                 ]
             },
@@ -148,6 +191,14 @@
                     {
                         label: 'Previsao bandeiras',
                         action: () => previewFlags()
+                    },
+                    {
+                        label: 'Recursos Full',
+                        action: () => {
+                            window.notifyPercentage = 90;
+                            window.minWarehouseSize = 60000;
+                            loadExternalScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/WarehousePercentages.js');
+                        }
                     }
                 ]
             }
