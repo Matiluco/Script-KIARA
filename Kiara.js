@@ -61,10 +61,6 @@
                         action: () => loadExternalScript('https://dl.dropboxusercontent.com/s/9rpgd3weuj0vp7z/renameVillages.js')
                     },
                     {
-                        label: 'Enviar Recursos',
-                        action: () => $.getScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
-                    },
-                    {
                         label: 'Coletar coords perfil',
                         action: () => loadExternalScript('https://twscripts.dev/scripts/extendedPlayerInfo.js')
                     },
