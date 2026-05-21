@@ -4,7 +4,7 @@
     const ROOT_ID = 'mltk-wrapper';
     const STYLE_ID = 'mltk-style';
     const BAR_ID = 'mltk-bottom-bar';
-    const VERSION = '1.5.1';
+    const VERSION = '1.4.3';
     const OWN_REPO_BASE = 'https://cdn.jsdelivr.net/gh/Matiluco';
     const SIMULATOR_PATH = 'Calculadora-de-Construcoes@5007a77540c7d7ea3578b0e7f4cd420d12d7c64e/Simulador.js';
 
@@ -57,8 +57,20 @@
                         action: () => loadExternalScript('https://media.innogamescdn.com/com_DS_BR/Scripts/Aprovados/AutoNotesFromReports.js')
                     },
                     {
+                        label: 'Adicionar grupo em massa',
+                        action: () => loadExternalScript('https://www.dl.dropboxusercontent.com/scl/fi/c743u2tn6e4g3345ztb7i/Group_Import_Coordinate.js?rlkey=y1g84o3zzwiva16c9hpr86bs3&dl=0')
+                    },
+                    {
+                        label: 'Importar grupo dinamico',
+                        action: () => loadExternalScript('https://twscripts.dev/scripts/importExportDynamicGroups.js')
+                    },
+                    {
                         label: 'Renomeador de aldeias',
                         action: () => loadExternalScript('https://dl.dropboxusercontent.com/s/9rpgd3weuj0vp7z/renameVillages.js')
+                    },
+                    {
+                        label: 'Enviar Recursos',
+                        action: () => loadExternalScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
                     },
                     {
                         label: 'Coletar coords perfil',
@@ -67,6 +79,10 @@
                     {
                         label: 'Simulador de Construcoes e Tropas',
                         action: () => loadOwnScript(SIMULATOR_PATH)
+                    },
+                    {
+                        label: 'Farm God',
+                        action: () => loadExternalScript('https://higamy.github.io/TW/Scripts/Approved/FarmGodCopy.js')
                     },
                     {
                         label: 'Coleta Massa',
