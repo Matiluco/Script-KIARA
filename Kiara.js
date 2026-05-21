@@ -7,7 +7,6 @@
     const VERSION = '1.5.1';
     const OWN_REPO_BASE = 'https://cdn.jsdelivr.net/gh/Matiluco';
     const SIMULATOR_PATH = 'Calculadora-de-Construcoes@5007a77540c7d7ea3578b0e7f4cd420d12d7c64e/Simulador.js';
-    const RESOURCE_SENDER_URL = 'https://shinko-to-kuma.com/scripts/res-senderV2.js';
 
     removeExisting();
 
@@ -63,7 +62,7 @@
                     },
                     {
                         label: 'Enviar Recursos',
-                        action: () => loadResourceSender()
+                        action: () => $.getScript('https://shinko-to-kuma.com/scripts/res-senderV2.js')
                     },
                     {
                         label: 'Coletar coords perfil',
@@ -214,14 +213,6 @@
         return loadScript(url, fresh);
     }
 
-    function loadResourceSender() {
-        const script = loadExternalScript(RESOURCE_SENDER_URL, true);
-        script.addEventListener('load', () => {
-            setTimeout(patchResourceSender, 0);
-        }, { once: true });
-        return script;
-    }
-
     function loadScript(url, fresh) {
         const script = document.createElement('script');
         script.src = fresh ? withCacheBuster(url) : url;
@@ -231,106 +222,6 @@
         script.onerror = () => alert(`Erro ao carregar script:\n${url}`);
         document.body.appendChild(script);
         return script;
-    }
-
-    function patchResourceSender() {
-        const $jq = window.jQuery;
-        if (!$jq) return;
-
-        const normalizeTargetVillage = (data) => {
-            let payload = data;
-            if (typeof payload === 'string') {
-                try {
-                    payload = JSON.parse(payload);
-                } catch (error) {
-                    return null;
-                }
-            }
-            return payload?.villages?.[0] || payload?.items?.[0] || null;
-        };
-
-        const waitForVillagesData = (callback) => {
-            let attempts = 0;
-            const tick = () => {
-                if (Array.isArray(window.villagesData) && window.villagesData.length > 0) {
-                    callback();
-                    return;
-                }
-                attempts += 1;
-                if (attempts >= 60) {
-                    callback();
-                    return;
-                }
-                setTimeout(tick, 100);
-            };
-            tick();
-        };
-
-        if (typeof window.createList === 'function') {
-            window.coordToId = function (coordinate) {
-                const url = window.game_data?.player?.sitter > 0
-                    ? `game.php?t=${window.game_data.player.id}&screen=api&ajax=target_selection&input=${encodeURIComponent(coordinate)}&type=coord`
-                    : `/game.php?screen=api&ajax=target_selection&input=${encodeURIComponent(coordinate)}&type=coord`;
-
-                $jq.get(url).done((data) => {
-                    const village = normalizeTargetVillage(data);
-                    if (!village) {
-                        alert('Aldeia alvo nao encontrada.');
-                        return;
-                    }
-
-                    window.sendBack = [
-                        village.id,
-                        village.name,
-                        village.image,
-                        village.player_name,
-                        village.points,
-                        village.x,
-                        village.y
-                    ];
-
-                    waitForVillagesData(() => window.createList());
-                }).fail(() => {
-                    alert('Erro ao buscar a aldeia alvo.');
-                });
-            };
-        }
-
-        const bindSave = () => {
-            const saveButton = $jq('#saveCoord');
-            if (!saveButton.length || typeof window.coordToId !== 'function') return false;
-
-            saveButton.off('click');
-            saveButton.on('click.kiara-resource-sender-fix', () => {
-                const input = $jq('#coordinateTargetFirstTime')[0];
-                const match = input?.value?.match(/\d+\|\d+/);
-
-                if (!match) {
-                    alert('Coordenada invalida. Use o formato 500|500.');
-                    return;
-                }
-
-                window.coordinate = match[0];
-                sessionStorage.setItem('coordinate', window.coordinate);
-
-                if (window.Dialog?.close) {
-                    window.Dialog.close();
-                } else {
-                    document.querySelector('.popup_box_close')?.click();
-                }
-
-                window.coordToId(window.coordinate);
-            });
-            return true;
-        };
-
-        if (!bindSave()) {
-            const observer = new MutationObserver(() => {
-                if (bindSave()) observer.disconnect();
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
-            setTimeout(() => observer.disconnect(), 10000);
-        }
     }
 
     function getCurrentWorld() {
